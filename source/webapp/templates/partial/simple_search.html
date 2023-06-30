@@ -1,0 +1,9 @@
+{% load widget_tweaks %}
+
+<form class="text-center d-flex" action="" method="GET">
+    {{ form.search }}
+    <input class="form-control me-2" placeholder="Search" type="submit" value="Search">
+    {% for error in form.search.errors %}
+        <p class="form-error">{{ error }}</p>
+    {% endfor %}
+</form>

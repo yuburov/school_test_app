@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Ученики{% endblock %}
+{% block menu %}
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <ul class="d-flex navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <li class="nav-item"><a href="{% url 'webapp:index' %}" class="nav-link">Главная</a></li>
+        </ul>
+    </nav>
+{% endblock %}
+{% block content %}
+    <div class="mt-5">
+        <h2 class="text-center">{{ student }}</h2>
+        <div class="row justify-content-between">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 order-xl-0 order-lg-0 order-md-1 order-sm-1 d-flex flex-column">
+                <p><b>ФИО:</b> {{ student }}</p>
+                <p><b>Дата рождения:</b> {{ student.birth_date }}</p>
+                <p><b>Место проживания:</b> {{ student.address }}</p>
+                <p><b>Email:</b> {{ student.mail }}</p>
+                <p><b>Класс:</b> {{ student.grade }}
+                <p><b>Пол:</b> {{ student.sex }}</p>
+            </div>
+            <div class = 'col-xl-6 col-lg-6 col-md-12 col-sm-12 order-xl-1 order-lg-1 order-md-0 order-sm-0 d-flex flex-column'>
+                {% if student.photo %}
+                    <img src="{{ student.photo.url }}" alt="prod_pic" class="rounded mx-auto d-block">
+                {% else %}
+                    <img src="{% static 'img/images.png' %}" alt="prod_pic" class="rounded mx-auto d-block">
+
+                {% endif %}
+            </div>
+    </div>
+ {% endblock %}
