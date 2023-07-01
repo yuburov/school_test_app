@@ -2,7 +2,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from accounts.forms import TeacherRegisterForm, TeacherAuthorizationForm
-from webapp.models import Grade, School
+from webapp.models import Grade, School, Student
 
 
 class SignUpUserView(CreateView):
@@ -38,3 +38,5 @@ class UserLoginView(LoginView):
 
 class UserLogoutView(LogoutView):
     next_page = 'webapp:index'
+
+

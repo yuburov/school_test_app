@@ -1,7 +1,7 @@
 from django.urls import path
 
 from webapp.views import StudentListView, StudentCreateView, StudentUpdateView, StudentDeleteView, \
-    StudentDetailView
+    StudentDetailView, MessageSendView
 
 app_name = 'webapp'
 
@@ -11,4 +11,5 @@ urlpatterns = [
     path('students/<int:pk>/', StudentDetailView.as_view(), name='student_detail'),
     path('students/update/<int:pk>/', StudentUpdateView.as_view(), name='student_update'),
     path('students/delete/<int:pk>/', StudentDeleteView.as_view(), name='student_delete'),
+    path('send-message/', MessageSendView.as_view(), name='send')
 ]

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends '../base.html' %}
 {% block title %}Ученики{% endblock %}
 {% block menu %}
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -14,6 +14,7 @@
                             <span class="nav-link">Привет, {{ request.user.tel_number }}!</span>
                         </li>
                         <li class="nav-item"><a href="{% url 'webapp:student_create' %}" class="nav-link">Добавить студента</a></li>
+                        <li class="nav-item"><a href="{% url 'webapp:send' %}" class="nav-link">Сделать рассылку</a></li>
                         <li class="nav-item"><a href="{% url 'accounts:logout' %}" class="nav-link">Выход</a></li>
                     {% else %}
                         <li class="nav-item"><a href="{% url 'accounts:sign_up' %}" class="nav-link">Регистрация</a></li>
@@ -29,35 +30,39 @@
 {% endblock %}
 {% block content %}
      {% if request.user.is_authenticated %}
-        <div class="container mt-5">
-            <table class="table caption-top">
-               <caption class="text-center">Список учеников</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Full name</th>
-                  <th scope="col">Mail</th>
-                  <th scope="col">Grade</th>
-                  <th scope="col">Действия</th>
-                </tr>
-              </thead>
-              <tbody>
-              {% for student in students %}
-                <tr>
-                  <td>{{ student }}</td>
-                  <td>{{ student.mail }}</td>
-                  <td>{{ student.grade }}</td>
-                  <td>
-                        <div class="btn-group">
-                            <a class='btn btn-info' href="{% url 'webapp:student_detail' student.pk %}">Детали</a>
-                            <a class='btn btn-warning'  href="{% url 'webapp:student_update' student.pk %}">Редактировать</a>
-                            <a class='btn btn-danger'  href="{% url 'webapp:student_delete' student.pk %}">Удалить</a>
-                        </div>
-                    </td>
-                </tr>
-              {% endfor %}
-              </tbody>
-            </table>
-        </div>
+         {% if students %}
+            <div class="container mt-5">
+                <table class="table caption-top">
+                   <caption class="text-center">Список учеников</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Full name</th>
+                      <th scope="col">Mail</th>
+                      <th scope="col">Grade</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for student in students %}
+                    <tr>
+                      <td>{{ student }}</td>
+                      <td>{{ student.mail }}</td>
+                      <td>{{ student.grade }}</td>
+                      <td>
+                            <div class="btn-group">
+                                <a class='btn btn-info' href="{% url 'webapp:student_detail' student.pk %}">Детали</a>
+                                <a class='btn btn-warning'  href="{% url 'webapp:student_update' student.pk %}">Редактировать</a>
+                                <a class='btn btn-danger'  href="{% url 'webapp:student_delete' student.pk %}">Удалить</a>
+                            </div>
+                        </td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+             {% else %}
+              <h1 class="text-center mt-5">Нет ни одного созданного ученика</h1>
+             {% endif %}
         {% else %}
          <h1 style="margin-top: 250px; text-align: center">Пройдите авторизацию чтоб воспользоваться системой</h1>
     {% endif %}

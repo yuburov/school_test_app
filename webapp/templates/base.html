@@ -14,6 +14,7 @@
 <body>
 {% block menu %}{% endblock %}
 <div class="container">
+    {% include "partial/messages.html" %}
     {% block content %}{% endblock %}
 </div>
 <script type="application/javascript" src="{% static "js/main.js" %}"></script>

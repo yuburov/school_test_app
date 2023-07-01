@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends '../base.html' %}
 {% load static %}
 {% block title %}Ученики{% endblock %}
 {% block menu %}
@@ -14,7 +14,7 @@
         <div class="row justify-content-between">
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 order-xl-0 order-lg-0 order-md-1 order-sm-1 d-flex flex-column">
                 <p><b>ФИО:</b> {{ student }}</p>
-                <p><b>Дата рождения:</b> {{ student.birth_date }}</p>
+                <p><b>Дата рождения:</b> {{ student.birth_date|date:'d.m.Y' }}</p>
                 <p><b>Место проживания:</b> {{ student.address }}</p>
                 <p><b>Email:</b> {{ student.mail }}</p>
                 <p><b>Класс:</b> {{ student.grade }}

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends '../base.html' %}
 {% block title %}
     Добавить
 {% endblock %}
@@ -10,8 +10,8 @@
     </nav>
 {% endblock %}
 {% block content %}
-    <h1 class="mt-3 text-center">Добавить файл</h1>
-    <form action="{% url 'webapp:student_create' %}" method="POST" enctype="multipart/form-data">
-        {% include 'partial/form.html' with button_text='Создать' %}
+    <h1 class="mt-3 text-center">Сделать рассылку сообщений всем ученикам</h1>
+    <form action="{% url 'webapp:send' %}" method="POST" enctype="multipart/form-data">
+        {% include 'partial/form.html' with button_text='Отправить' %}
     </form>
 {% endblock %}

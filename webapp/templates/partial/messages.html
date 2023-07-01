@@ -1,0 +1,19 @@
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"></span></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% block scripts %}
+    <script>
+        // Обрабатываем событие клика на кнопку закрытия алерта
+        document.querySelectorAll('.alert .btn-close').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                this.closest('.alert').remove(); // Удаляем родительский элемент алерта
+            });
+        });
+    </script>
+{% endblock %}

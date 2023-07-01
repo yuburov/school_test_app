@@ -1,10 +1,11 @@
+from django.contrib import messages
 from django.db.models import Q
 from django.utils.http import urlencode
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView, FormView
 from django.core.mail import send_mail
 from main import settings
 from .models import Student
-from .forms import StudentForm, SimpleSearchForm
+from .forms import StudentForm, SimpleSearchForm, MessageForm
 
 
 class StudentListView(ListView):
@@ -48,11 +49,6 @@ class StudentCreateView(CreateView):
     template_name = 'student/create.html'
     success_url = '/'
 
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        send_notification_email(self.object)
-        return response
-
 
 class StudentDetailView(DetailView):
     model = Student
@@ -73,9 +69,21 @@ class StudentDeleteView(DeleteView):
     success_url = '/'
 
 
-def send_notification_email(student):
-    subject = 'Добро пожаловать!'
-    message = f'Здравствуйте, {student.full_name}! Вы успешно зарегистрированы в нашей школе.'
-    from_email = settings.EMAIL_HOST_USER
-    to_email = student.mail
-    send_mail(subject, message, from_email, [to_email])
+class MessageSendView(FormView):
+    template_name = 'student/send.html'
+    form_class = MessageForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        message = form.cleaned_data['message']
+        students = Student.objects.all()
+        for student in students:
+            send_mail(
+                'Новое сообщение от учителя',
+                message,
+                settings.EMAIL_HOST_USER,
+                [student.mail],
+                fail_silently=False,
+            )
+        messages.success(self.request, 'Сообщение успешно отправлено.')
+        return super().form_valid(form)
