@@ -17,15 +17,17 @@ services:
     # Зависимость от другого сервиса
     depends_on:
       - pgdb
+    env_file:
+      - .env
 
   pgdb:
     # Использование готового образа postgres
     image: postgres
     # Задание переменных окружения для контейнера с postgres
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
      # Задание имени контейнера для сервиса pgdb
     container_name: pgdb
      # Связывание тома с директорией в контейнере для сохранения данных postgres
