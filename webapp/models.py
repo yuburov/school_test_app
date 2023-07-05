@@ -4,9 +4,10 @@ from django.db import models
 
 
 class Teacher(AbstractUser):
-    tel_number = models.CharField(max_length=20, verbose_name='Номер телефона')
+    tel_number = models.CharField(max_length=20, unique=True, verbose_name='Номер телефона')
     subject = models.CharField(max_length=50, verbose_name="Название предмета")
-    username = models.CharField(max_length=150, unique=False)
+    username = models.CharField(max_length=55, unique=False, null=True, blank=True)
+    USERNAME_FIELD = 'tel_number'
 
     def __str__(self):
         return self.tel_number
