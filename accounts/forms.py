@@ -15,6 +15,7 @@ class TeacherRegisterForm(UserCreationForm):
 
 class TeacherAuthorizationForm(AuthenticationForm):
     tel_number = forms.CharField(label='Номер телефона', max_length=30)
+    username = forms.CharField(label='Имя', required=False)
 
     class Meta:
         model = Teacher
@@ -23,7 +24,6 @@ class TeacherAuthorizationForm(AuthenticationForm):
     def __init__(self, request=None, *args, **kwargs):
         self.request = request
         super().__init__(*args, **kwargs)
-        self.fields.pop('username')
 
     def clean(self):
         tel_number = self.cleaned_data.get('tel_number')
